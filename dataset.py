@@ -69,23 +69,26 @@ flyability_dataset = ProbesDataset(
 )
 
 from sklearn.model_selection import train_test_split
-flyability_train, flyability_test = train_test_split(flyability_dataset, test_size=0.2, random_state=10)
-
+flyability_train, flyability_test, idx_train, idx_test = train_test_split(flyability_dataset,
+                                                                          range(len(flyability_dataset)),
+                                                                          test_size=0.2, random_state=10)
 
 train_data_loader = torch.utils.data.DataLoader(flyability_train,
-                                               batch_size=4,
-                                               shuffle=True,
-                                               num_workers=4)
+                                                batch_size=4, # batch size suits best to my low end laptop
+                                                shuffle=True, # still efficient for google colab
+                                                num_workers=4)
 
 test_data_loader = torch.utils.data.DataLoader(flyability_train,
-                                              batch_size=4,
-                                              shuffle=False,
-                                              num_workers=4)
+                                               batch_size=4,
+                                               shuffle=False,
+                                               num_workers=4)
 
 if __name__ == "__main__":
     print(f"full: {len(flyability_dataset)},  train: {len(flyability_train)}, test: {len(flyability_test)}")
+    print(f"indices (train): {idx_train}") # because of "random_state" in sklearn, samples are ALWAYS
+    print(f"indices (test): {idx_test}")   # splitted in the same sets, this print confirms it if run on multiple nodes
 
-    # Print the dictionary
+    # Print the data stracture to examine it
     import pprint
     pprint.pprint(images_fullinfo[0], depth=2)
     #

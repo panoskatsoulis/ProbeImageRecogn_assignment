@@ -8,7 +8,7 @@ from dataset import ProbesDataset, images_fullinfo
 #print(annotations, images, flyability_train, flyability_test)
 
 flyability = ProbesDataset(
-    _dir = "/home/kpanos/flyability_interview_project/probe_dataset/probe_images",
+    _dir = "probe_dataset/probe_images",
     labels = images_fullinfo
     #transform = transforms.ToTensor()
 )
