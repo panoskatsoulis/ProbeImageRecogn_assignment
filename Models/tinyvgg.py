@@ -28,7 +28,8 @@ class TinyVGG(nn.Module):
       nn.Flatten(),
       nn.Linear(self.channels * 50 * 80, 512), # layers 1-2-3 output 10 (channels) 2d-tensors of 50x80
       nn.ReLU(inplace=True),
-      nn.Linear(512, 5)  # 1-bit decision, 2 numbers for top-left, 2 numbers for width and height
+      #nn.Linear(512, 5)  # 1-bit decision, 2 numbers for top-left, 2 numbers for width and height
+      nn.Linear(512, 4)  # 2 numbers for top-left, 2 numbers for width and height
     )
 
   def forward(self, x):

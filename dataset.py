@@ -22,14 +22,16 @@ class ProbesDataset(torch.utils.data.Dataset):
         data_out = list(filter(lambda x: x['idx'] == _idx, self.labels))
         if len(data_out)==0:
             white_image = Image.new('RGB', (640, 400), color='white')
-            default_out = [0., 0., 0., 0., 0.]
+            #default_out = [0., 0., 0., 0., 0.]
+            default_out = [0., 0., 0., 0.]
             return (white_image, default_out)
         # print(f"idx {_idx}")
         # print(f"filename {filename}, len {len(filename)}")
         # print(f"data_out {data_out}, len {len(data_out)}")
         assert (len(filename)==1 and len(data_out)==1), "multiple images with the same id in dataset, check dataset"
         filename = filename[0]['file_name']
-        data_out = [1.] + data_out[0]['bbox']
+        #data_out = [1.] + data_out[0]['bbox']
+        data_out = data_out[0]['bbox']
         name = os.path.join(self.dir, filename)
         data_in = Image.open(name)
         if self.transform:
