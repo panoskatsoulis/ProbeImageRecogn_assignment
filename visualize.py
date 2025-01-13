@@ -27,7 +27,7 @@ def print_image(_dir, _img, _idx):
     # box_x1, box_y1, box_x2, box_y2 = _imginfo['bbox']
     # width  = box_x2 - box_x1
     # height = box_y2 - box_y1
-    box_x1, box_y1, width, height = bbox
+    box_x1, box_y1, width, height = bbox[1:]
     rect = patches.Rectangle((box_x1, box_y1), width, height,
                              linewidth=2, edgecolor='r', facecolor='none')
     item.imshow(image)

@@ -78,7 +78,7 @@ train_data_loader = torch.utils.data.DataLoader(flyability_train,
                                                 shuffle=True, # still efficient for google colab
                                                 num_workers=4)
 
-test_data_loader = torch.utils.data.DataLoader(flyability_train,
+test_data_loader = torch.utils.data.DataLoader(flyability_test,
                                                batch_size=4,
                                                shuffle=False,
                                                num_workers=4)
