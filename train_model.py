@@ -22,7 +22,7 @@ for epoch in range(num_epochs):
     model.train()
     current_loss = 0.
     for data_in, data_out in tqdm(train_data_loader):
-        data_in.to(device); data_out.to(device)
+        data_in, data_out = data_in.to(device), data_out.to(device)
         optimizer.zero_grad()                   # clear grads
         current_out = model(data_in)            # pass input data
         loss = loss_func(current_out, data_out) # calc loss
@@ -38,6 +38,7 @@ for epoch in range(num_epochs):
     accuracy = 0.
     with torch.inference_mode():
         for data_in, data_out in tqdm(test_data_loader):
+            data_in, data_out = data_in.to(device), data_out.to(device)
             test_out = model(data_in)
             loss = loss_func(test_out, data_out)
             test_loss += loss.item()
