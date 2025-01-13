@@ -3,9 +3,10 @@ from tqdm.auto import tqdm
 
 import torch
 from torch import nn, optim
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
 from Models.tinyvgg import model
-model.cpu()
+model.to(device)
 
 from dataset import train_data_loader, test_data_loader
 
@@ -21,7 +22,7 @@ for epoch in range(num_epochs):
     model.train()
     current_loss = 0.
     for data_in, data_out in tqdm(train_data_loader):
-        data_in.cpu(); data_out.cpu()
+        data_in.to(device); data_out.to(device)
         optimizer.zero_grad()                   # clear grads
         current_out = model(data_in)            # pass input data
         loss = loss_func(current_out, data_out) # calc loss
