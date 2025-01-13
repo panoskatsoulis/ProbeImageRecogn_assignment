@@ -16,7 +16,7 @@ def acc_func(real, test):
 loss_func = nn.MSELoss()  # Mean Squared Error loss for regression tasks
 optimizer = optim.Adam(model.parameters(), lr=0.0001)
 num_epochs = 30
-SAVE_PATH = 'Models/tinyvgg_state_dict.pth'
+SAVE_PATH = 'Models/tinyvgg_state_dict.pkl'
 
 for epoch in range(num_epochs):
     # train it
