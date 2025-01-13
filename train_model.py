@@ -14,8 +14,9 @@ def acc_func(real, test):
     return (torch.eq(real, test).sum().item() / len(test)) * 100
 
 loss_func = nn.MSELoss()  # Mean Squared Error loss for regression tasks
-optimizer = optim.Adam(model.parameters(), lr=0.001)
-num_epochs = 5
+optimizer = optim.Adam(model.parameters(), lr=0.0001)
+num_epochs = 30
+SAVE_PATH = 'Models/tinyvgg_state_dict.pth'
 
 for epoch in range(num_epochs):
     # train it
@@ -45,3 +46,8 @@ for epoch in range(num_epochs):
             accuracy += acc_func(data_out, test_out)
 
     print(f'Finished epoch [{epoch+1}/{num_epochs}], Test Loss: {test_loss/len(test_data_loader)}, Test Acc: {accuracy/len(test_data_loader)}')
+
+
+# save it
+print(f"Saved model to: {SAVE_PATH}")
+torch.save(obj=model.state_dict(), f=SAVE_PATH)

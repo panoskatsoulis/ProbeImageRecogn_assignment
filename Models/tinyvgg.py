@@ -6,7 +6,7 @@ from torchvision import datasets, transforms, models
 class TinyVGG(nn.Module):
   def __init__(self):
     super(TinyVGG, self).__init__()
-    self.channels = 32
+    self.channels = 64
     self.layers = nn.Sequential(
       ## Layer 1
       #nn.Conv2d(3, 64, kernel_size=3, padding=1),
