@@ -38,7 +38,7 @@ class ProbesDataset(torch.utils.data.Dataset):
         return (data_in, data_out)
 
 # Function to read a JSON file and convert it to a dictionary
-json_path = '/home/kpanos/flyability_interview_project/probe_dataset/probe_labels.json'
+json_path = 'probe_dataset/probe_labels.json'
 flyability_labels = []
 with open(json_path, 'r') as _f:
     flyability_labels = json.load(_f)
@@ -61,7 +61,7 @@ images_fullinfo = associate_dict_byId(images, annotations)
 images_output = images_fullinfo
 
 flyability_dataset = ProbesDataset(
-    _dir = "/home/kpanos/flyability_interview_project/probe_dataset/probe_images",
+    _dir = "probe_dataset/probe_images",
     labels = images_fullinfo,
     transform = transforms.ToTensor()
     #_transform = transforms.Compose([transforms.Resize((256, 256)), # maybe shrink them to fit in memory
