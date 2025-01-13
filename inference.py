@@ -46,8 +46,10 @@ def print_image_with_inference(_dir, _idx, _img, inference_bbox, prob):
 
 
 ## prep metrics
-from torchmetrics.classification import BinaryAccuracy
-acc = BinaryAccuracy()
+from torchvision.ops.boxes import box_iou
+def make_xy1wh_xy1xy2(tensor):
+    x1, y1, w, h = tensor[1:] if len(tensor)==5 else tensor
+    return torch.Tensor([x1, y1, x1+w, y1+h])
 
 target_dir = "visualize_data/inference"
 if not os.path.exists(target_dir):
@@ -73,6 +75,5 @@ with torch.inference_mode():
         #print(f"logit: {dec_prob*100:.2f}%")
         inference_dec_set.append(torch.sigmoid(inference_bbox.squeeze(0)[0])) # logit -> prob
         print_image_with_inference(target_dir, idx, image_bbox, inference_bbox.squeeze(0).numpy(), dec_prob*100)
-
-    #print(f"decision probabilities: {inference_dec_set}")
+        print(f"IoU: {box_iou(make_xy1wh_xy1xy2(tensor_out),make_xy1wh_xy1xy2(inference_bbox))}")
     #print(f'Accuracy: {acc(inference_dec_set,target_dec_set):.2f}')
