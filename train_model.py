@@ -15,7 +15,7 @@ def make_xy1wh_xy1xy2(tensor):
     x1, y1, w, h = tensor[1:] if len(tensor)==5 else tensor
     return torch.Tensor([x1, y1, x1+w, y1+h])
 
-loss_func = nn.MSELoss()  # Mean Squared Error loss for regression tasks
+loss_func = nn.MSELoss()  # Mean Squared Error loss for now
 optimizer = optim.Adam(model.parameters(), lr=0.0001)
 num_epochs = 30
 SAVE_PATH = 'Models/tinyvgg_state_dict.pkl'

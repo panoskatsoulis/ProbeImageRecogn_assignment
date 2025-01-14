@@ -1,4 +1,3 @@
-# PyTorch, torchvision
 import torch, torchvision, os, json
 from torchvision import datasets, transforms
 from torchvision.transforms import ToTensor
@@ -14,24 +13,25 @@ class ProbesDataset(torch.utils.data.Dataset):
         self.labels = labels
 
     def __len__(self):
-        return len(self.labels)
+        return len(os.listdir(self.dir))
 
     def __getitem__(self, _idx):
         #from pdb import set_trace; set_trace()
         filename = list(filter(lambda x: x['idx'] == _idx, self.labels))
         data_out = list(filter(lambda x: x['idx'] == _idx, self.labels))
         if len(data_out)==0:
+            print("WARNING (dataset.py:23): this should never happen, investigate!")
             white_image = Image.new('RGB', (640, 400), color='white')
-            #default_out = [0., 0., 0., 0., 0.]
-            default_out = [0., 0., 0., 0.]
+            default_out = [0., 0., 0., 0., 0.]
+            #default_out = [0., 0., 0., 0.]
             return (white_image, default_out)
         # print(f"idx {_idx}")
         # print(f"filename {filename}, len {len(filename)}")
         # print(f"data_out {data_out}, len {len(data_out)}")
         assert (len(filename)==1 and len(data_out)==1), "multiple images with the same id in dataset, check dataset"
         filename = filename[0]['file_name']
-        #data_out = [1.] + data_out[0]['bbox']
-        data_out = data_out[0]['bbox']
+        data_out = [1.] + data_out[0]['bbox']
+        #data_out = data_out[0]['bbox']
         name = os.path.join(self.dir, filename)
         data_in = Image.open(name)
         if self.transform:
